@@ -25,6 +25,9 @@ public class MainViewController implements Initializable{
 	private MenuItem menuItemAutor;
 	
 	@FXML
+	private MenuItem menuItemEditora;
+	
+	@FXML
 	private MenuItem menuItemSobre;
 	
 	@FXML
@@ -33,7 +36,11 @@ public class MainViewController implements Initializable{
 	}
 	@FXML
 	public void onMenuItemAutorAction() {
-		System.out.println("onMenuItemAutorAction");
+		loadView("/gui/Autor.fxml");
+	}
+	@FXML
+	public void onMenuItemEditoraAction() {
+		loadView("/gui/Editora.fxml");
 	}
 	@FXML
 	public void onMenuItemSobreAction() {
