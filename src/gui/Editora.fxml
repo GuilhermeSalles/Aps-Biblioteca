@@ -11,7 +11,7 @@
 
 <VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditorasListController">
    <children>
-      <Label text="Autores">
+      <Label text="Editora">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

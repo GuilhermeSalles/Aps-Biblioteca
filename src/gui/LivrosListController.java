@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,9 +15,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Livros;
+import model.services.LivroService;
 
 public class LivrosListController implements Initializable {
 
+	private LivroService service;
+	
 	@FXML
 	private TableView<Livros> tableViewLivro;
 
@@ -36,6 +42,9 @@ public class LivrosListController implements Initializable {
 	@FXML
 	private Button btAdiciona;
 	
+	private ObservableList<Livros> obsList;
+	
+	
 	@FXML
 	public void onbtBuscaAction() {
 		System.out.println("btBusca");
@@ -44,6 +53,10 @@ public class LivrosListController implements Initializable {
 	@FXML
 	public void onbtAdicionaAction() {
 		System.out.println("btAdiciona");
+	}
+	
+	public void setLivrosService(LivroService service) {
+		this.service = service;
 	}
 
 	@Override
@@ -59,6 +72,16 @@ public class LivrosListController implements Initializable {
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewLivro.prefHeightProperty().bind(stage.heightProperty());
+		
+	}
+	
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Service null");
+		}
+		List<Livros> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewLivro.setItems(obsList);
 		
 	}
 }
