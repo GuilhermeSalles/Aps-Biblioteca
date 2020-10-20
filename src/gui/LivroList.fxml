@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="384.0" prefWidth="566.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivrosListController">
    <children>
-      <Label text="Registrar livro">
+      <Label text="Livros">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -25,19 +24,19 @@
       </Label>
       <ToolBar prefHeight="36.0" prefWidth="566.0">
         <items>
-          <Button mnemonicParsing="false" text="Adicionar Livro" textAlignment="CENTER" textFill="#245431" />
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" text="Excluir" textAlignment="CENTER" textFill="#ae0f0f" />
+            <Button fx:id="btBusca" mnemonicParsing="false" onAction="#onbtBuscaAction" text="Buscar" />
+          <Button fx:id="btAdiciona" mnemonicParsing="false" onAction="#onbtAdicionaAction" text="Adicionar" textAlignment="CENTER" />
         </items>
          <padding>
             <Insets bottom="5.0" left="5.0" top="5.0" />
          </padding>
       </ToolBar>
-      <TableView prefHeight="321.0" prefWidth="566.0">
+      <TableView fx:id="tableViewLivro" prefHeight="325.0" prefWidth="568.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ISBN" />
-          <TableColumn prefWidth="300.0" text="Título" />
-            <TableColumn prefWidth="102.0" text="ID Editora " />
-            <TableColumn minWidth="7.0" prefWidth="88.0" text="Preço" />
+          <TableColumn fx:id="tableColumnIsbn" prefWidth="75.0" text="ISBN" />
+          <TableColumn fx:id="tableColumnTitulo" prefWidth="258.0" text="Título" />
+            <TableColumn fx:id="tableColumnIdEditora" prefWidth="104.0" text="ID Editora " />
+            <TableColumn fx:id="tableColumnPreco" minWidth="7.0" prefWidth="106.0" text="Preço" />
         </columns>
       </TableView>
    </children>
