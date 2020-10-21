@@ -1,19 +1,17 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.DaoFactory;
+import model.dao.LivrosDao;
 import model.entities.Livros;
 
 public class LivroService {
 	
+	private LivrosDao dao = DaoFactory.createLivrosDao();
+	
 	public List<Livros> findAll(){
-		List<Livros> list = new ArrayList<>();
-		list.add(new Livros("0-201-96426-0","A Guide to the SQL Standard", 1, 47.95));
-		list.add(new Livros("0-201-96426-0","A Guide to the SQL Standard", 2, 48.95));
-		list.add(new Livros("0-201-96426-0","A Guide to the SQL Standard", 3, 57.95));
-		list.add(new Livros("0-201-96426-0","A Guide to the SQL Standard", 4, 87.95));
-		return list;
+		return dao.findAll();
 	}
 	
 }

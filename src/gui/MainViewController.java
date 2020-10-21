@@ -16,6 +16,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.AutorService;
+import model.services.EditoraService;
 import model.services.LivroService;
 
 public class MainViewController implements Initializable{
@@ -41,11 +43,17 @@ public class MainViewController implements Initializable{
 	}
 	@FXML
 	public void onMenuItemAutorAction() {
-		loadView("/gui/Autor.fxml", x -> {});
+		loadView("/gui/Autor.fxml", (AutoresListController controller) -> {
+			controller.setAutorService(new AutorService());
+			controller.updateTableView();
+		});
 	}
 	@FXML
 	public void onMenuItemEditoraAction() {
-		loadView("/gui/Editora.fxml", x -> {});
+		loadView("/gui/Editora.fxml", (EditorasListController controller) -> {
+			controller.setEditoraService(new EditoraService());
+			controller.updateTableView();
+		});
 	}
 	@FXML
 	public void onMenuItemSobreAction() {

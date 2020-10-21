@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,9 +15,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Editora;
+import model.services.EditoraService;
 
 public class EditorasListController implements Initializable {
 
+	private EditoraService service;
+	
 	@FXML
 	private TableView<Editora> tableViewEditora;
 
@@ -33,6 +39,8 @@ public class EditorasListController implements Initializable {
 	@FXML
 	private Button btAdiciona;
 	
+	private ObservableList<Editora> obsList;
+	
 	@FXML
 	public void onbtBuscaAction() {
 		System.out.println("btBuscaEditora");
@@ -41,6 +49,10 @@ public class EditorasListController implements Initializable {
 	@FXML
 	public void onbtAdicionaAction() {
 		System.out.println("btAdicionaEditora");
+	}
+
+	public void setEditoraService(EditoraService service) {
+		this.service = service;
 	}
 
 	@Override
@@ -56,6 +68,16 @@ public class EditorasListController implements Initializable {
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewEditora.prefHeightProperty().bind(stage.heightProperty());
+		
+	}
+	
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Service null");
+		}
+		List<Editora> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewEditora.setItems(obsList);
 		
 	}
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivrosListController">
+<VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivrosListController">
    <children>
       <Label text="Livros">
          <font>
@@ -31,12 +31,12 @@
             <Insets bottom="5.0" left="5.0" top="5.0" />
          </padding>
       </ToolBar>
-      <TableView fx:id="tableViewLivro" prefHeight="325.0" prefWidth="568.0">
+      <TableView fx:id="tableViewLivro" prefHeight="330.0" prefWidth="616.0">
         <columns>
-          <TableColumn fx:id="tableColumnIsbn" prefWidth="75.0" text="ISBN" />
-          <TableColumn fx:id="tableColumnTitulo" prefWidth="258.0" text="Título" />
-            <TableColumn fx:id="tableColumnIdEditora" prefWidth="104.0" text="ID Editora " />
-            <TableColumn fx:id="tableColumnPreco" minWidth="7.0" prefWidth="106.0" text="Preço" />
+          <TableColumn fx:id="tableColumnIsbn" prefWidth="165.0" text="ISBN" />
+          <TableColumn fx:id="tableColumnTitulo" prefWidth="273.0" text="Título" />
+            <TableColumn fx:id="tableColumnIdEditora" prefWidth="210.0" text="Id Editora" />
+            <TableColumn fx:id="tableColumnPreco" minWidth="7.0" prefWidth="107.0" text="Preço" />
         </columns>
       </TableView>
    </children>
