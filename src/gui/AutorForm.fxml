@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="191.0" prefWidth="431.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane prefHeight="191.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AutorFormController">
    <children>
       <GridPane alignment="CENTER" layoutX="22.0" layoutY="24.0" prefHeight="157.0" prefWidth="395.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="24.0">
         <columnConstraints>
@@ -28,15 +27,15 @@
             <Label prefHeight="17.0" prefWidth="78.0" text="              Id:" />
             <Label prefHeight="17.0" prefWidth="79.0" text="        Nome: " GridPane.rowIndex="1" />
             <Label text="Sobrenome: " GridPane.rowIndex="2" />
-            <Label text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField editable="false" prefHeight="27.0" prefWidth="140.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorNome" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorSobreNome" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="txtId" editable="false" prefHeight="27.0" prefWidth="140.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtSobreNome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="Salvar" />
-                  <Button mnemonicParsing="false" text="Cancelar" />
+                  <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvaAction" text="Salvar" />
+                  <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#onBtCancelaAction" text="Cancelar" />
                </children>
             </HBox>
          </children>
