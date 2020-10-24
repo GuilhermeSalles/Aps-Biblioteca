@@ -7,11 +7,18 @@ import model.dao.DaoFactory;
 import model.entities.Autor;
 
 public class AutorService {
-	
+
 	private AutoresDao dao = DaoFactory.createAutoresDao();
-	
-	public List<Autor> findAll(){
+
+	public List<Autor> findAll() {
 		return dao.findAll();
 	}
-	
+
+	public void saveOrUpdate(Autor obj) {
+		if (obj.getAutorId() == null) {
+			dao.insert(obj);
+		} else {
+			dao.update(obj);
+		}
+	}
 }

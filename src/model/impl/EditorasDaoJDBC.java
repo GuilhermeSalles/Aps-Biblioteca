@@ -51,10 +51,12 @@ public class EditorasDaoJDBC implements EditorasDao {
 		PreparedStatement st = null;
 
 		try {
-			st = conn.prepareStatement("insert into Produtos (Nome,Valor) values(?,?)",
+			st = conn.prepareStatement("insert into Publishers (name,url) values(?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 
-
+			st.setString(1, obj.getNomeEditora());
+			st.setString(2, obj.getUrl());
+			
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected > 0) {

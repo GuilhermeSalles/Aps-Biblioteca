@@ -28,6 +28,7 @@ import model.services.EditoraService;
 
 public class EditorasListController implements Initializable {
 
+	
 	private EditoraService service;
 	
 	@FXML
@@ -58,7 +59,8 @@ public class EditorasListController implements Initializable {
 	@FXML
 	public void onbtAdicionaAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createdialogForm("/gui/EditoraForm.fxml", parentStage);
+		Editora obj = new Editora();
+		createdialogForm(obj, "/gui/EditoraForm.fxml", parentStage);
 	}
 
 	public void setEditoraService(EditoraService service) {
@@ -91,10 +93,16 @@ public class EditorasListController implements Initializable {
 		
 	}
 	
-	private void createdialogForm(String absoluteName,Stage parentStage) {
+	private void createdialogForm(Editora obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			
+			EditoraFormController controller = loader.getController();
+			controller.setEntityEditora(obj);
+			controller.setServiceEditora(new EditoraService());
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com os dados da Editora");

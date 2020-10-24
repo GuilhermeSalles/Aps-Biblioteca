@@ -59,7 +59,8 @@ public class AutoresListController implements Initializable {
 	@FXML
 	public void onbtAdicionaAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createdialogForm("/gui/AutorForm.fxml", parentStage);
+		Autor obj = new Autor();
+		createdialogForm(obj, "/gui/AutorForm.fxml", parentStage);
 	}
 
 	public void setAutorService(AutorService service) {
@@ -93,10 +94,17 @@ public class AutoresListController implements Initializable {
 	}
 	
 	
-	private void createdialogForm(String absoluteName,Stage parentStage) {
+	private void createdialogForm(Autor obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			
+			AutorFormController controller = loader.getController();
+			controller.setEntityAutor(obj);
+			controller.setServiceAutor(new AutorService());
+			controller.updateFormData();
+			
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com os dados do Autor");

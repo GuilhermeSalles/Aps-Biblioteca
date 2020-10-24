@@ -51,10 +51,12 @@ public class AutoresDaoJDBC implements AutoresDao {
 		PreparedStatement st = null;
 
 		try {
-			st = conn.prepareStatement("insert into Produtos (Nome,Valor) values(?,?)",
+			st = conn.prepareStatement("insert into Authors (Name,SecondName) values(?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 
-
+			st.setString(1, obj.getNome());
+			st.setString(2, obj.getSegundoNome());
+			
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected > 0) {
