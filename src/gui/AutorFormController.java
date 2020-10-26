@@ -1,7 +1,9 @@
 package gui;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.util.Alerts;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Autor;
+import model.exceptions.ValidationException;
 import model.services.AutorService;
 
 public class AutorFormController implements Initializable {
@@ -66,7 +69,9 @@ public class AutorFormController implements Initializable {
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
 			Alerts.showAlert("Error Saving Object", null, e.getMessage(), Alert.AlertType.ERROR);
-		} finally {
+		}  catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
+		}finally {
 			MainViewController tbv = new MainViewController();
 			tbv.loadView("/gui/Autor.fxml", (AutoresListController controller) -> {
 				controller.setAutorService(new AutorService());
@@ -78,9 +83,25 @@ public class AutorFormController implements Initializable {
 	private Autor getFormData() {
 		Autor obj = new Autor();
 
+		ValidationException exception = new ValidationException("Validação erro");
+
 		obj.setAutorId((Utils.tryParseToInt(txtId.getText())));
-		obj.setNome((txtNome.getText()));
-		obj.setSegundoNome((txtSobreNome.getText()));
+
+		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+			exception.addError("nomeAutor", "Campo não pode ser vazio.");
+		} else {
+			obj.setNome(txtNome.getText());
+		}
+
+		if (txtSobreNome.getText() == null || txtSobreNome.getText().trim().equals("")) {
+			exception.addError("sobrenome", "Campo não pode ser vazio.");
+		} else {
+			obj.setSegundoNome(txtSobreNome.getText());
+		}
+
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
 
 		return obj;
 	}
@@ -110,5 +131,16 @@ public class AutorFormController implements Initializable {
 		txtId.setText(String.valueOf(entityAutor.getAutorId()));
 		txtNome.setText(entityAutor.getNome());
 		txtSobreNome.setText(entityAutor.getSegundoNome());
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+
+		if (fields.contains("nomeAutor")) {
+			labelErrorNome.setText(errors.get("nomeAutor"));
+		} 
+		if (fields.contains("sobrenome")) {
+			labelErrorSobreNome.setText(errors.get("sobrenome"));
+		}
 	}
 }

@@ -1,7 +1,9 @@
 package gui;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.util.Alerts;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Editora;
+import model.exceptions.ValidationException;
 import model.services.EditoraService;
 
 public class EditoraFormController implements Initializable {
@@ -66,6 +69,8 @@ public class EditoraFormController implements Initializable {
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
 			Alerts.showAlert("Error Saving Object", null, e.getMessage(), Alert.AlertType.ERROR);
+		} catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
 		} finally {
 			MainViewController tbv = new MainViewController();
 			tbv.loadView("/gui/Editora.fxml", (EditorasListController controller) -> {
@@ -79,9 +84,25 @@ public class EditoraFormController implements Initializable {
 	private Editora getFormData() {
 		Editora obj = new Editora();
 
+		ValidationException exception = new ValidationException("Validação erro");
+
 		obj.setIdEditora(Utils.tryParseToInt(txtId.getText()));
-		obj.setNomeEditora(txtNome.getText());
-		obj.setUrl(txtUrl.getText());
+
+		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+			exception.addError("nomeEditora", "Campo não pode ser vazio.");
+		} else {
+			obj.setNomeEditora(txtNome.getText());
+		}
+
+		if (txtUrl.getText() == null || txtUrl.getText().trim().equals("")) {
+			exception.addError("Url", "Campo não pode ser vazio.");
+		} else {
+			obj.setUrl(txtUrl.getText());
+		}
+
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
 
 		return obj;
 	}
@@ -110,5 +131,16 @@ public class EditoraFormController implements Initializable {
 		txtId.setText(String.valueOf(entityEditora.getIdEditora()));
 		txtNome.setText(entityEditora.getNomeEditora());
 		txtNome.setText(entityEditora.getUrl());
+	}
+
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+
+		if (fields.contains("nomeEditora")) {
+			labelErrorNome.setText(errors.get("nomeEditora"));
+		}
+		if (fields.contains("Url")) {
+			labelErrorUrl.setText(errors.get("Url"));
+		}
 	}
 }
