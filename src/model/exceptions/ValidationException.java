@@ -15,6 +15,7 @@ public class ValidationException extends RuntimeException {
 
 	public Map<String, String> getErrors() {
 		return errors;
+		
 	}
 
 	public void addError(String fieldName, String errorMassage) {

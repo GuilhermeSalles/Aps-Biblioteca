@@ -142,5 +142,6 @@ public class EditoraFormController implements Initializable {
 		if (fields.contains("Url")) {
 			labelErrorUrl.setText(errors.get("Url"));
 		}
+		
 	}
 }
