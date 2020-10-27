@@ -82,9 +82,12 @@ public class EditorasDaoJDBC implements EditorasDao {
 
 		try {
 
-			st = conn.prepareStatement("update Produtos set Nome = ?,Valor = ? where Id = ?");
+			st = conn.prepareStatement("update Publishers set name = ?,url = ? where publisher_id = ?");
 			
-
+			st.setString(1, obj.getNomeEditora());
+			st.setString(2, obj.getUrl());
+			st.setInt(3, obj.getIdEditora());
+			
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -100,9 +103,10 @@ public class EditorasDaoJDBC implements EditorasDao {
 		PreparedStatement st = null;
 		try {
 
-			st = conn.prepareStatement("delete from Produtos where Id = ?");
+			st = conn.prepareStatement("delete from Publishers where publisher_id = ?");
 
 			st.setInt(1, id);
+			
 			st.executeUpdate();
 
 		} catch (SQLException e) {

@@ -21,4 +21,8 @@ public class EditoraService {
 			dao.update(obj);
 		}
 	}
+
+	public void remove(Editora obj) {
+		dao.deleteById(obj.getIdEditora());
+	}
 }

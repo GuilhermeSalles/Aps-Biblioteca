@@ -82,9 +82,12 @@ public class AutoresDaoJDBC implements AutoresDao {
 
 		try {
 
-			st = conn.prepareStatement("update Produtos set Nome = ?,Valor = ? where Id = ?");
+			st = conn.prepareStatement("update Authors set Name = ?,SecondName = ? where Author_id = ?");
 			
-
+			st.setString(1, obj.getNome());
+			st.setString(2, obj.getSegundoNome());
+			st.setInt(3, obj.getAutorId());
+			
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -100,7 +103,7 @@ public class AutoresDaoJDBC implements AutoresDao {
 		PreparedStatement st = null;
 		try {
 
-			st = conn.prepareStatement("delete from Produtos where Id = ?");
+			st = conn.prepareStatement("delete from Authors where Author_id = ?");
 
 			st.setInt(1, id);
 			st.executeUpdate();

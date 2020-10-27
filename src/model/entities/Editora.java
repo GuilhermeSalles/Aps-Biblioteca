@@ -6,7 +6,7 @@ public class Editora  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private int idEditora;
+	private Integer idEditora;
 	private String nomeEditora;
 	private String url;
 	

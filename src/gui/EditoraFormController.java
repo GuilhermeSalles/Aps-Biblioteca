@@ -130,7 +130,7 @@ public class EditoraFormController implements Initializable {
 
 		txtId.setText(String.valueOf(entityEditora.getIdEditora()));
 		txtNome.setText(entityEditora.getNomeEditora());
-		txtNome.setText(entityEditora.getUrl());
+		txtUrl.setText(entityEditora.getUrl());
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {

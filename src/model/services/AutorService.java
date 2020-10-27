@@ -15,10 +15,14 @@ public class AutorService {
 	}
 
 	public void saveOrUpdate(Autor obj) {
-		if (obj.getAutorId() == null) {
+		if (obj.getAutorId() == 0) {
 			dao.insert(obj);
 		} else {
 			dao.update(obj);
 		}
+	}
+
+	public void remove(Autor obj) {
+		dao.deleteById(obj.getAutorId());
 	}
 }
