@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditorasListController">
+<VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditoraBuscaListController">
    <children>
-      <Label text="Editora">
+      <Label text="Busca de Editoras">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -22,13 +23,19 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </Label>
-      <ToolBar prefHeight="36.0" prefWidth="566.0">
+      <ToolBar prefHeight="37.0" prefWidth="442.0">
         <items>
-          <Button fx:id="btAdiciona" mnemonicParsing="false" onAction="#onbtAdicionaAction" text="Adicionar" textAlignment="CENTER" />
+            <Label text="Nome:" />
+            <TextField fx:id="txtNome" />
+          <Button fx:id="btBusca" mnemonicParsing="false" onAction="#onbtBuscaAction" text="Buscar" textAlignment="CENTER" />
+            <Button fx:id="btMostraTudo" mnemonicParsing="false" onAction="#onbtMostraTudoAction" text="Mostrar tudo" visible="false" />
         </items>
          <padding>
-            <Insets bottom="5.0" left="5.0" top="5.0" />
+            <Insets bottom="5.0" left="10.0" top="5.0" />
          </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </ToolBar>
       <TableView fx:id="tableViewEditora" prefHeight="325.0" prefWidth="568.0">
         <columns>

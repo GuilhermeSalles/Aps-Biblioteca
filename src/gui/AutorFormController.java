@@ -41,7 +41,7 @@ public class AutorFormController implements Initializable {
 	@FXML
 	private Label labelErrorSobreNome;
 
-	@FXML 
+	@FXML
 	private Button btSalvar;
 
 	@FXML
@@ -69,9 +69,9 @@ public class AutorFormController implements Initializable {
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
 			Alerts.showAlert("Error Saving Object", null, e.getMessage(), Alert.AlertType.ERROR);
-		}  catch (ValidationException e) {
+		} catch (ValidationException e) {
 			setErrorMessages(e.getErrors());
-		}finally {
+		} finally {
 			MainViewController tbv = new MainViewController();
 			tbv.loadView("/gui/Autor.fxml", (AutoresListController controller) -> {
 				controller.setAutorService(new AutorService());
@@ -123,7 +123,7 @@ public class AutorFormController implements Initializable {
 
 	}
 
-	public void updateFormData() {
+	public void updateFormDataAutor() {
 		if (entityAutor == null) {
 			throw new IllegalStateException("Entity was null");
 		}
@@ -132,13 +132,13 @@ public class AutorFormController implements Initializable {
 		txtNome.setText(entityAutor.getNome());
 		txtSobreNome.setText(entityAutor.getSegundoNome());
 	}
-	
+
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
 		if (fields.contains("nomeAutor")) {
 			labelErrorNome.setText(errors.get("nomeAutor"));
-		} 
+		}
 		if (fields.contains("sobrenome")) {
 			labelErrorSobreNome.setText(errors.get("sobrenome"));
 		}

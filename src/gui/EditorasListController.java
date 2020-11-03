@@ -63,11 +63,6 @@ public class EditorasListController implements Initializable {
 	private ObservableList<Editora> obsList;
 
 	@FXML
-	public void onbtBuscaAction() {
-		System.out.println("btBuscaEditora");
-	}
-
-	@FXML
 	public void onbtAdicionaAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Editora obj = new Editora();
@@ -113,7 +108,7 @@ public class EditorasListController implements Initializable {
 			EditoraFormController controller = loader.getController();
 			controller.setEntityEditora(obj);
 			controller.setServiceEditora(new EditoraService());
-			controller.updateFormData();
+			controller.updateFormDataEditora();
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com os dados do Editora");

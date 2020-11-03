@@ -1,5 +1,6 @@
 package gui;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.ResourceBundle;
 import application.Main;
 import db.DbIntegrityException;
 import gui.util.Alerts;
+import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -25,6 +27,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -32,41 +35,65 @@ import javafx.stage.Stage;
 import model.entities.Autor;
 import model.services.AutorService;
 
-public class AutoresListController implements Initializable {
-
+public class AutorBuscaListController implements Initializable {
+	
+	
 	private AutorService service;
-
+	
 	@FXML
 	private TableView<Autor> tableViewAutor;
 
 	@FXML
 	private TableColumn<Autor, Integer> tableColumnId;
-
+	
 	@FXML
 	private TableColumn<Autor, String> tableColumnNome;
-
+	
 	@FXML
 	private TableColumn<Autor, Integer> tableColumnSobreNome;
-
+	
 	@FXML
 	private TableColumn<Autor, Autor> tableColumnEDIT;
-
+	
 	@FXML
 	private TableColumn<Autor, Autor> tableColumnREMOVE;
+	
+	@FXML
+	private TextField txtNome;
 
 	@FXML
-	private Button btAdiciona;
-
+	private TextField txtSobreNome;
+	
+	@FXML
+	private Button btBusca;
+	
+	@FXML
+	private Button btMostraTudo;
+	
 	private ObservableList<Autor> obsList;
-
+	
 	@FXML
-	public void onbtAdicionaAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-		Autor obj = new Autor();
-		createdialogFormAutor(obj, "/gui/AutorForm.fxml", parentStage);
+	public void onbtBuscaAction(ActionEvent event) {
+		if(service == null) {
+			throw new IllegalStateException("Service null");
+		}
+		List<Autor> list = service.findByFull(txtNome.getText(), txtSobreNome.getText());
+		obsList = FXCollections.observableArrayList(list);
+		tableViewAutor.setItems(obsList);
+		
+		btMostraTudo.setVisible(true);
+	}
+	
+	@FXML
+	public void onbtMostraTudoAction(ActionEvent event) {
+		updateTableView();
+		txtNome.setText("");
+		txtSobreNome.setText("");
+		
+		btMostraTudo.setVisible(false);
 	}
 
-	public void setAutorService(AutorService service) {
+	public void setAutorBuscaService(AutorService service) {
 		this.service = service;
 	}
 
@@ -79,14 +106,17 @@ public class AutoresListController implements Initializable {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("autorId"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tableColumnSobreNome.setCellValueFactory(new PropertyValueFactory<>("segundoNome"));
-
+		Constraints.setTextFieldMaxLength(txtNome, 30);
+		Constraints.setTextFieldMaxLength(txtSobreNome, 30);
+		
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewAutor.prefHeightProperty().bind(stage.heightProperty());
-
+		
 	}
-
+	
 	public void updateTableView() {
-		if (service == null) {
+		if(service == null) {
 			throw new IllegalStateException("Service null");
 		}
 		List<Autor> list = service.findAll();
@@ -95,17 +125,20 @@ public class AutoresListController implements Initializable {
 		initEditButtons();
 		initRemoveButtons();
 	}
-
+	
+	
 	private void createdialogFormAutor(Autor obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-
+			
+			
 			AutorFormController controller = loader.getController();
 			controller.setEntityAutor(obj);
 			controller.setServiceAutor(new AutorService());
 			controller.updateFormDataAutor();
-
+			
+			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com os dados do Autor");
 			dialogStage.setScene(new Scene(pane));
@@ -113,13 +146,13 @@ public class AutoresListController implements Initializable {
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-
+			
 		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Erro ao carregar View", e.getMessage(), Alert.AlertType.ERROR);
 		}
-
+		
 	}
-
+	
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnEDIT.setCellFactory(param -> new TableCell<Autor, Autor>() {
@@ -133,12 +166,11 @@ public class AutoresListController implements Initializable {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createdialogFormAutor(obj, "/gui/AutorForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createdialogFormAutor(obj, "/gui/AutorForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
-
+	
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnREMOVE.setCellFactory(param -> new TableCell<Autor, Autor>() {

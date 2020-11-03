@@ -20,10 +20,10 @@ public class Editora  implements Serializable{
 		this.url = url;
 	}
 	
-	public int getIdEditora() {
+	public Integer getIdEditora() {
 		return idEditora;
 	}
-	public void setIdEditora(int idEditora) {
+	public void setIdEditora(Integer idEditora) {
 		this.idEditora = idEditora;
 	}
 	public String getNomeEditora() {

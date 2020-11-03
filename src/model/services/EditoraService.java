@@ -15,7 +15,7 @@ public class EditoraService {
 	}
 
 	public void saveOrUpdate(Editora obj) {
-		if (obj.getIdEditora() == 0) {
+		if (obj.getIdEditora() == null) {
 			dao.insert(obj);
 		} else {
 			dao.update(obj);
@@ -24,5 +24,9 @@ public class EditoraService {
 
 	public void remove(Editora obj) {
 		dao.deleteById(obj.getIdEditora());
+	}
+	
+	public List<Editora> findByFull(String aux) {
+		return dao.findByFull(aux);
 	}
 }

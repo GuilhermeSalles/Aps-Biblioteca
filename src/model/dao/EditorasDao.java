@@ -14,5 +14,7 @@ public interface EditorasDao {
 
 	Editora findById(Integer id);
 
-	List<Editora> findAll(); 
+	List<Editora> findAll();
+
+	List<Editora> findByFull(String nomeEditora);
 }

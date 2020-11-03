@@ -1,5 +1,6 @@
 package gui;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.ResourceBundle;
 import application.Main;
 import db.DbIntegrityException;
 import gui.util.Alerts;
+import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -25,48 +27,72 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Autor;
-import model.services.AutorService;
+import model.entities.Editora;
+import model.services.EditoraService;
 
-public class AutoresListController implements Initializable {
-
-	private AutorService service;
+public class EditoraBuscaListController implements Initializable {
+	
+	
+	private EditoraService service;
+	
+	@FXML
+	private TableView<Editora> tableViewEditora;
 
 	@FXML
-	private TableView<Autor> tableViewAutor;
-
+	private TableColumn<Editora, Integer> tableColumnId;
+	
 	@FXML
-	private TableColumn<Autor, Integer> tableColumnId;
-
+	private TableColumn<Editora, String> tableColumnNome;
+	
 	@FXML
-	private TableColumn<Autor, String> tableColumnNome;
-
+	private TableColumn<Editora, Integer> tableColumnSobreNome;
+	
 	@FXML
-	private TableColumn<Autor, Integer> tableColumnSobreNome;
-
+	private TableColumn<Editora, Integer> tableColumnUrl;
+	
 	@FXML
-	private TableColumn<Autor, Autor> tableColumnEDIT;
-
+	private TableColumn<Editora, Editora> tableColumnEDIT;
+	
 	@FXML
-	private TableColumn<Autor, Autor> tableColumnREMOVE;
-
+	private TableColumn<Editora, Editora> tableColumnREMOVE;
+	
 	@FXML
-	private Button btAdiciona;
-
-	private ObservableList<Autor> obsList;
-
+	private TextField txtNome;
+	
 	@FXML
-	public void onbtAdicionaAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-		Autor obj = new Autor();
-		createdialogFormAutor(obj, "/gui/AutorForm.fxml", parentStage);
+	private Button btBusca;
+	
+	@FXML
+	private Button btMostraTudo;
+	
+	private ObservableList<Editora> obsList;
+	
+	@FXML
+	public void onbtBuscaAction(ActionEvent event) {
+		if(service == null) {
+			throw new IllegalStateException("Service null");
+		}
+		List<Editora> list = service.findByFull(txtNome.getText());
+		obsList = FXCollections.observableArrayList(list);
+		tableViewEditora.setItems(obsList);
+		
+		btMostraTudo.setVisible(true);
+	}
+	
+	@FXML
+	public void onbtMostraTudoAction(ActionEvent event) {
+		updateTableView();
+		txtNome.setText("");
+		
+		btMostraTudo.setVisible(false);
 	}
 
-	public void setAutorService(AutorService service) {
+	public void setEditoraBuscaService(EditoraService service) {
 		this.service = service;
 	}
 
@@ -76,76 +102,81 @@ public class AutoresListController implements Initializable {
 	}
 
 	private void initializeNodes() {
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("autorId"));
-		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		tableColumnSobreNome.setCellValueFactory(new PropertyValueFactory<>("segundoNome"));
-
+		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("idEditora"));
+		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nomeEditora"));
+		tableColumnUrl.setCellValueFactory(new PropertyValueFactory<>("url"));
+		Constraints.setTextFieldMaxLength(txtNome, 30);
+		
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewAutor.prefHeightProperty().bind(stage.heightProperty());
-
+		tableViewEditora.prefHeightProperty().bind(stage.heightProperty());
+		
 	}
-
+	
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service null");
 		}
-		List<Autor> list = service.findAll();
+		List<Editora> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewAutor.setItems(obsList);
+		tableViewEditora.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
-	}
 
-	private void createdialogFormAutor(Autor obj, String absoluteName, Stage parentStage) {
+	}
+	
+	
+	private void createdialogFormEditora(Editora obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-
-			AutorFormController controller = loader.getController();
-			controller.setEntityAutor(obj);
-			controller.setServiceAutor(new AutorService());
-			controller.updateFormDataAutor();
-
+			
+			
+			EditoraFormController controller = loader.getController();
+			controller.setEntityEditora(obj);
+			controller.setServiceEditora(new EditoraService());
+			controller.updateFormDataEditora();
+			
+			
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Autor");
+			dialogStage.setTitle("Entre com os dados do Editora");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-
+			
 		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Erro ao carregar View", e.getMessage(), Alert.AlertType.ERROR);
 		}
-
+		
 	}
-
+	
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Autor, Autor>() {
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Editora, Editora>() {
 			private final Button button = new Button("Alterar");
 
 			@Override
-			protected void updateItem(Autor obj, boolean empty) {
+			protected void updateItem(Editora obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createdialogFormAutor(obj, "/gui/AutorForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createdialogFormEditora(obj, "/gui/EditoraForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
-
+	
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Autor, Autor>() {
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Editora, Editora>() {
 			private final Button button = new Button("Deletar");
 
 			@Override
-			protected void updateItem(Autor obj, boolean empty) {
+			protected void updateItem(Editora obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -157,7 +188,7 @@ public class AutoresListController implements Initializable {
 		});
 	}
 
-	private void removeEntity(Autor obj) {
+	private void removeEntity(Editora obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Tem certeza que quer deletar?");
 
 		if (result.get() == ButtonType.OK) {

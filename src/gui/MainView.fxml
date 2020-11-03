@@ -9,17 +9,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="332.0" prefWidth="534.0">
+      <VBox prefHeight="332.0" prefWidth="595.0">
          <children>
-            <MenuBar>
+            <MenuBar prefHeight="29.0" prefWidth="555.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Informações">
                   <items>
-                    <MenuItem fx:id="menuItemLivro" mnemonicParsing="false" onAction="#onMenuItemLivroAction" text="Livros" />
-                        <MenuItem fx:id="menuItemAutor" mnemonicParsing="false" onAction="#onMenuItemAutorAction" text="Autores" />
-                        <MenuItem fx:id="menuItemEditora" mnemonicParsing="false" onAction="#onMenuItemEditoraAction" text="Editoras" />
+                        <Menu mnemonicParsing="false" text="Opções para livros">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Livro Busca" />
+                          <MenuItem fx:id="menuItemLivro" mnemonicParsing="false" onAction="#onMenuItemLivroAction" text="Livros" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Opções para Autor">
+                          <items>
+                            <MenuItem fx:id="menuItemSAutorBusca" mnemonicParsing="false" onAction="#onMenuItemAutorBuscaAction" text="Busca de Autores" />
+                              <MenuItem fx:id="menuItemAutor" mnemonicParsing="false" onAction="#onMenuItemAutorAction" text="Autores" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Opções para Editoras">
+                          <items>
+                            <MenuItem fx:id="menuItemSEditoraBusca" mnemonicParsing="false" onAction="#onMenuItemEditoraBuscaAction" text="Busca Editoras" />
+                              <MenuItem fx:id="menuItemEditora" mnemonicParsing="false" onAction="#onMenuItemEditoraAction" text="Editoras" />
+                          </items>
+                        </Menu>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">

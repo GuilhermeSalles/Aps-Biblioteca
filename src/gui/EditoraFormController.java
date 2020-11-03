@@ -86,7 +86,7 @@ public class EditoraFormController implements Initializable {
 
 		ValidationException exception = new ValidationException("Validação erro");
 
-		obj.setIdEditora(Utils.tryParseToInt(txtId.getText()));
+		obj.setIdEditora((Utils.tryParseToInt(txtId.getText())));
 
 		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			exception.addError("nomeEditora", "Campo não pode ser vazio.");
@@ -120,10 +120,10 @@ public class EditoraFormController implements Initializable {
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtNome, 30);
-		Constraints.setTextFieldMaxLength(txtUrl, 80);
+		Constraints.setTextFieldMaxLength(txtUrl, 30);
 	}
 
-	public void updateFormData() {
+	public void updateFormDataEditora() {
 		if (entityEditora == null) {
 			throw new IllegalStateException("Entity was null");
 		}

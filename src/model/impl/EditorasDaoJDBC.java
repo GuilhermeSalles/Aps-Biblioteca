@@ -145,5 +145,33 @@ public class EditorasDaoJDBC implements EditorasDao {
 		}
 
 	}
+	
+
+	@Override
+	public List<Editora> findByFull(String nomeEditora) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT * FROM Publishers WHERE name = ?");
+			st.setString(1, nomeEditora);
+			rs = st.executeQuery();
+			
+			List<Editora> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Editora obj = new Editora();
+				obj.setIdEditora(rs.getInt("publisher_id"));
+				obj.setNomeEditora(rs.getString("name"));
+				obj.setUrl(rs.getString("url"));
+				list.add(obj);    
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 
 }

@@ -23,27 +23,6 @@ public class AutoresDaoJDBC implements AutoresDao {
 		this.conn = conn;
 	}
 
-	@Override
-	public Autor findById(Integer id) {
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			st = conn.prepareStatement("SELECT * FROM produtos WHERE Id = ?");
-			st.setInt(1, id);
-			rs = st.executeQuery();
-			if (rs.next()) {
-				Autor obj = new Autor();
-				
-				return obj;
-			}
-			return null;
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closeStatement(st);
-			DB.closeResultSet(rs);
-		}
-	}
 
 	@Override
 	public void insert(Autor obj) {
@@ -143,5 +122,33 @@ public class AutoresDaoJDBC implements AutoresDao {
 		}
 
 	}
-
+	
+	
+	@Override
+	public List<Autor> findByFull(String primeiroNome, String segundoNome) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT * FROM Authors WHERE Name = ? and SecondName = ?");
+			st.setString(1, primeiroNome);
+			st.setString(2, segundoNome);
+			rs = st.executeQuery();
+			
+			List<Autor> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Autor obj = new Autor();
+				obj.setAutorId(rs.getInt("Author_id"));
+				obj.setNome(rs.getString("Name"));
+				obj.setSegundoNome(rs.getString("SecondName"));
+				list.add(obj);
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 }

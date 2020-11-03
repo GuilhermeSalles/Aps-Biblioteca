@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AutoresListController">
+<VBox alignment="TOP_CENTER" prefHeight="384.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AutorBuscaListController">
    <children>
-      <Label text="Autores">
+      <Label prefHeight="23.0" prefWidth="168.0" text="Busca de Autores">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -24,11 +25,22 @@
       </Label>
       <ToolBar prefHeight="36.0" prefWidth="566.0">
         <items>
-          <Button fx:id="btAdiciona" mnemonicParsing="false" onAction="#onbtAdicionaAction" text="Adicionar" textAlignment="CENTER" />
+            <Label text="Nome:" />
+            <TextField fx:id="txtNome" />
+            <Label text="Sobrenome:">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtSobreNome" />
+            <Button fx:id="btBusca" mnemonicParsing="false" onAction="#onbtBuscaAction" text="Buscar" />
         </items>
          <padding>
-            <Insets bottom="5.0" left="5.0" top="5.0" />
+            <Insets bottom="5.0" left="10.0" top="5.0" />
          </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </ToolBar>
       <TableView fx:id="tableViewAutor" prefHeight="325.0" prefWidth="568.0">
         <columns>
@@ -39,5 +51,6 @@
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
         </columns>
       </TableView>
+      <Button fx:id="btMostraTudo" mnemonicParsing="false" onAction="#onbtMostraTudoAction" text="Mostrar tudo" visible="false" />
    </children>
 </VBox>

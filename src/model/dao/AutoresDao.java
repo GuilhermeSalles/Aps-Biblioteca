@@ -12,7 +12,7 @@ public interface AutoresDao {
 
 	void deleteById(Integer id);
 
-	Autor findById(Integer id);
+	List<Autor> findByFull(String primeiroNome, String segundoNome);
 
-	List<Autor> findAll(); 
+	List<Autor> findAll();
 }

@@ -25,4 +25,8 @@ public class AutorService {
 	public void remove(Autor obj) {
 		dao.deleteById(obj.getAutorId());
 	}
+
+	public List<Autor> findByFull(String aux, String aux1) {
+		return dao.findByFull(aux, aux1);
+	}
 }
