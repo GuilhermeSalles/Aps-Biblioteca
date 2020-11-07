@@ -5,11 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivrosListController">
+<VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivrosBuscaController">
    <children>
       <Label text="Livros">
          <font>
@@ -24,7 +25,10 @@
       </Label>
       <ToolBar prefHeight="36.0" prefWidth="566.0">
         <items>
-          <Button fx:id="btAdiciona" mnemonicParsing="false" onAction="#onbtAdicionaAction" text="Adicionar" textAlignment="CENTER" />
+            <Label text="Titulo:" />
+            <TextField fx:id="txtTitle" />
+          <Button fx:id="btBusca" mnemonicParsing="false" onAction="#onbtBuscaAction" text="Buscar" textAlignment="CENTER" />
+            <Button fx:id="btMostraTudo" mnemonicParsing="false" onAction="#onbtMostraTudoAction" text="Mostrar tudo" visible="false" />
         </items>
          <padding>
             <Insets bottom="5.0" left="5.0" top="5.0" />

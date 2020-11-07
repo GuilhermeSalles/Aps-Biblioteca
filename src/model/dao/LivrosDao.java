@@ -10,9 +10,11 @@ public interface LivrosDao {
 
 	void update(Livros obj);
 
-	void deleteById(Integer id);
+	void deleteById(String string);
 
-	Livros findById(Integer id);
+	Livros findById(String id);
 
 	List<Livros> findAll(); 
+	
+	List<Livros> findTitle(String title); 
 }

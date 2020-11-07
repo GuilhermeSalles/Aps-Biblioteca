@@ -19,7 +19,7 @@
                   <items>
                         <Menu mnemonicParsing="false" text="Opções para livros">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Livro Busca" />
+                            <MenuItem fx:id="menuItemSLivroBusca" mnemonicParsing="false" onAction="#onMenuItemLivrosBuscaAction" text="Livro Busca" />
                           <MenuItem fx:id="menuItemLivro" mnemonicParsing="false" onAction="#onMenuItemLivroAction" text="Livros" />
                           </items>
                         </Menu>

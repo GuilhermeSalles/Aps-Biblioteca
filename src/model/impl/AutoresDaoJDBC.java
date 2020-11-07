@@ -33,7 +33,7 @@ public class AutoresDaoJDBC implements AutoresDao {
 			st = conn.prepareStatement("insert into Authors (Name,SecondName) values(?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 
-			st.setString(1, obj.getNome());
+			st.setString(1, obj.getNomeAutor());
 			st.setString(2, obj.getSegundoNome());
 			
 			int rowsAffected = st.executeUpdate();
@@ -63,7 +63,7 @@ public class AutoresDaoJDBC implements AutoresDao {
 
 			st = conn.prepareStatement("update Authors set Name = ?,SecondName = ? where Author_id = ?");
 			
-			st.setString(1, obj.getNome());
+			st.setString(1, obj.getNomeAutor());
 			st.setString(2, obj.getSegundoNome());
 			st.setInt(3, obj.getAutorId());
 			
@@ -109,7 +109,7 @@ public class AutoresDaoJDBC implements AutoresDao {
 			while (rs.next()) {
 				Autor obj = new Autor();
 				obj.setAutorId(rs.getInt("Author_id"));
-				obj.setNome(rs.getString("Name"));
+				obj.setNomeAutor(rs.getString("Name"));
 				obj.setSegundoNome(rs.getString("SecondName"));
 				list.add(obj);
 			}
@@ -139,7 +139,7 @@ public class AutoresDaoJDBC implements AutoresDao {
 			while (rs.next()) {
 				Autor obj = new Autor();
 				obj.setAutorId(rs.getInt("Author_id"));
-				obj.setNome(rs.getString("Name"));
+				obj.setNomeAutor(rs.getString("Name"));
 				obj.setSegundoNome(rs.getString("SecondName"));
 				list.add(obj);
 			}

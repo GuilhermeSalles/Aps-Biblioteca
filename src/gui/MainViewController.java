@@ -41,6 +41,9 @@ public class MainViewController implements Initializable{
 	private MenuItem menuItemSEditoraBusca;
 	
 	@FXML
+	private MenuItem menuItemSLivroBusca;
+	
+	@FXML
 	public void onMenuItemLivroAction() {
 		loadView("/gui/LivroList.fxml",(LivrosListController controller) -> {
 			controller.setLivrosService(new LivroService());
@@ -74,6 +77,14 @@ public class MainViewController implements Initializable{
 	public void onMenuItemEditoraBuscaAction() {
 		loadView("/gui/EditoraBusca.fxml", (EditoraBuscaListController controller) -> {
 			controller.setEditoraBuscaService(new EditoraService());
+			controller.updateTableView();
+		});
+	}
+	
+	@FXML
+	public void onMenuItemLivrosBuscaAction() {
+		loadView("/gui/LivroBusca.fxml", (LivrosBuscaController controller) -> {
+			controller.setLivrosService(new LivroService());;
 			controller.updateTableView();
 		});
 	}

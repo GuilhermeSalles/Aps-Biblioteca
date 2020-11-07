@@ -77,7 +77,7 @@ public class AutoresListController implements Initializable {
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("autorId"));
-		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nomeAutor"));
 		tableColumnSobreNome.setCellValueFactory(new PropertyValueFactory<>("segundoNome"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();

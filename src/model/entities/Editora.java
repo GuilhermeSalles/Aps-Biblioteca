@@ -64,6 +64,6 @@ public class Editora  implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Editora [idEditora=" + idEditora + ", nomeEditora=" + nomeEditora + ", url=" + url + "]";
+		return nomeEditora;
 	}		
 }

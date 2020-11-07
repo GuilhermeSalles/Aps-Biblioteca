@@ -90,7 +90,7 @@ public class AutorFormController implements Initializable {
 		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			exception.addError("nomeAutor", "Campo não pode ser vazio.");
 		} else {
-			obj.setNome(txtNome.getText());
+			obj.setNomeAutor(txtNome.getText());
 		}
 
 		if (txtSobreNome.getText() == null || txtSobreNome.getText().trim().equals("")) {
@@ -129,7 +129,7 @@ public class AutorFormController implements Initializable {
 		}
 
 		txtId.setText(String.valueOf(entityAutor.getAutorId()));
-		txtNome.setText(entityAutor.getNome());
+		txtNome.setText(entityAutor.getNomeAutor());
 		txtSobreNome.setText(entityAutor.getSegundoNome());
 	}
 

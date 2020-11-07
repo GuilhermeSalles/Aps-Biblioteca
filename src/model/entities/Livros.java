@@ -2,24 +2,26 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Livros implements Serializable{
+public class Livros implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String isbnLivro;
 	private String titulo;
-	private int editoraId;
+	private Editora editoraNome;
+	private Autor autor;
 	private double preco;
-	
-	
+
 	public Livros() {
-		
+
 	}
-	
-	public Livros(String isbnLivro, String titulo, int editoraId, double preco) {
+
+	public Livros(String isbnLivro, String titulo, Editora editoraNome, Autor autor, double preco) {
+		super();
 		this.isbnLivro = isbnLivro;
 		this.titulo = titulo;
-		this.editoraId = editoraId;
+		this.editoraNome = editoraNome;
+		this.autor = autor;
 		this.preco = preco;
 	}
 
@@ -39,12 +41,20 @@ public class Livros implements Serializable{
 		this.titulo = titulo;
 	}
 
-	public int getEditoraId() {
-		return editoraId;
+	public Editora getEditoraNome() {
+		return editoraNome;
 	}
 
-	public void setEditoraId(int editoraId) {
-		this.editoraId = editoraId;
+	public void setEditoraNome(Editora editoraNome) {
+		this.editoraNome = editoraNome;
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
 	}
 
 	public double getPreco() {
@@ -82,9 +92,8 @@ public class Livros implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Livros [isbnLivro=" + isbnLivro + ", titulo=" + titulo + ", editoraId=" + editoraId + ", preco=" + preco
-				+ "]";
+		return "Livros [isbnLivro=" + isbnLivro + ", titulo=" + titulo + ", editoraId=" + editoraNome + ", preco="
+				+ preco + "]";
 	}
-	
-	
+
 }

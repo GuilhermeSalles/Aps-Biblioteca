@@ -7,7 +7,7 @@ public class Autor implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer autorId;
-	private String nome;
+	private String nomeAutor;
 	private String segundoNome;
 	
 	public Autor() {
@@ -16,7 +16,7 @@ public class Autor implements Serializable{
 	
 	public Autor(Integer autorId, String nome, String segundoNome) {
 		this.autorId = autorId;
-		this.nome = nome;
+		this.nomeAutor = nome;
 		this.segundoNome = segundoNome;
 	}
 
@@ -28,12 +28,12 @@ public class Autor implements Serializable{
 		this.autorId = autorId;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeAutor() {
+		return nomeAutor;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeAutor(String nomeAutor) {
+		this.nomeAutor = nomeAutor;
 	}
 
 	public String getSegundoNome() {
@@ -71,7 +71,7 @@ public class Autor implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Autor [autorId=" + autorId + ", nome=" + nome + ", segundoNome=" + segundoNome + "]";
+		return nomeAutor + " " + segundoNome ;
 	}
 	
 	

@@ -13,6 +13,8 @@ import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
 import model.dao.LivrosDao;
+import model.entities.Autor;
+import model.entities.Editora;
 import model.entities.Livros;
 
 public class LivrosDaoJDBC implements LivrosDao {
@@ -24,12 +26,12 @@ public class LivrosDaoJDBC implements LivrosDao {
 	}
 
 	@Override
-	public Livros findById(Integer id) {
+	public Livros findById(String id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement("SELECT * FROM produtos WHERE Id = ?");
-			st.setInt(1, id);
+			st.setString(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Livros obj = new Livros();
@@ -80,7 +82,7 @@ public class LivrosDaoJDBC implements LivrosDao {
 
 		try {
 
-			st = conn.prepareStatement("update Produtos set Nome = ?,Valor = ? where Id = ?");
+			st = conn.prepareStatement("update Books set title = ?,publisher_id = ?,price = ? where isbn = ?");
 			
 
 			st.executeUpdate();
@@ -94,13 +96,13 @@ public class LivrosDaoJDBC implements LivrosDao {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void deleteById(String id) {
 		PreparedStatement st = null;
 		try {
 
-			st = conn.prepareStatement("delete from Produtos where Id = ?");
+			st = conn.prepareStatement("delete from Books where isbn = ?");
 
-			st.setInt(1, id);
+			st.setString(1, id);
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -117,17 +119,33 @@ public class LivrosDaoJDBC implements LivrosDao {
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("select * from Books order by title");
+			st = conn.prepareStatement("select Books.isbn,Books.title, Books.publisher_id, Books.price,Publishers.publisher_id, Publishers.name, Publishers.url, Authors.Author_id, Authors.Name,Authors.SecondName " + 
+					"from BooksAuthors inner join Books on BooksAuthors.isbn = Books.isbn " + 
+					"inner join Authors on Authors.Author_id = BooksAuthors.author_id " + 
+					"inner join Publishers on Publishers.publisher_id = Books.publisher_id order by Books.title");
 			rs = st.executeQuery();
 
 			List<Livros> list = new ArrayList<>();
 
 			while (rs.next()) {
+				Autor autor = new Autor();
+				autor.setAutorId(rs.getInt("Author_id"));
+				autor.setNomeAutor(rs.getString("Authors.Name"));
+				autor.setSegundoNome(rs.getString("SecondName"));
+				
+				Editora edit = new Editora();
+				edit.setIdEditora(rs.getInt("publisher_id"));
+				edit.setNomeEditora(rs.getString("Publishers.name"));
+				edit.setUrl(rs.getString("url"));
+				
 				Livros obj = new Livros();
 				obj.setIsbnLivro(rs.getString("isbn"));
 				obj.setTitulo(rs.getString("title"));
-				obj.setEditoraId(rs.getInt("publisher_id"));
+				obj.setEditoraNome(edit);
+				obj.setAutor(autor);
 				obj.setPreco(rs.getDouble("price"));
+				
+
 				list.add(obj);
 			}
 			
@@ -139,6 +157,54 @@ public class LivrosDaoJDBC implements LivrosDao {
 			DB.closeResultSet(rs);
 		}
 
+	}
+	@Override
+	public List<Livros> findTitle(String title) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("select Books.isbn,Books.title, Books.publisher_id, Books.price,Publishers.publisher_id, Publishers.name, Publishers.url, Authors.Author_id, Authors.Name,Authors.SecondName " + 
+					"from BooksAuthors inner join Books on BooksAuthors.isbn = Books.isbn " + 
+					"inner join Authors on Authors.Author_id = BooksAuthors.author_id " + 
+					"inner join Publishers on Publishers.publisher_id = Books.publisher_id " + 
+					"where Books.title = ?");
+			
+			st.setString(1, title);
+			rs = st.executeQuery();
+			
+			List<Livros> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Autor autor = new Autor();
+				autor.setAutorId(rs.getInt("Author_id"));
+				autor.setNomeAutor(rs.getString("Authors.Name"));
+				autor.setSegundoNome(rs.getString("SecondName"));
+				
+				Editora edit = new Editora();
+				edit.setIdEditora(rs.getInt("publisher_id"));
+				edit.setNomeEditora(rs.getString("Publishers.name"));
+				edit.setUrl(rs.getString("url"));
+				
+				Livros obj = new Livros();
+				obj.setIsbnLivro(rs.getString("isbn"));
+				obj.setTitulo(rs.getString("title"));
+				obj.setEditoraNome(edit);
+				obj.setAutor(autor);
+				obj.setPreco(rs.getDouble("price"));
+				
+				
+				list.add(obj);
+			}
+			
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+		
 	}
 
 }
