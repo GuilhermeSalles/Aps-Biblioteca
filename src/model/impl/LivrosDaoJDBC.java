@@ -159,13 +159,13 @@ public class LivrosDaoJDBC implements LivrosDao {
 	}
 
 	@Override
-	public void deleteById(String id) {
+	public void deleteLivro(Livros obj) {
 		PreparedStatement st = null;
 		try {
 
-			st = conn.prepareStatement("delete from Books where isbn = ?");
+			st = conn.prepareStatement("delete from BooksAuthors where isbn = ?");
 
-			st.setString(1, id);
+			st.setString(1, obj.getIsbnLivro());
 			st.executeUpdate();
 
 		} catch (SQLException e) {

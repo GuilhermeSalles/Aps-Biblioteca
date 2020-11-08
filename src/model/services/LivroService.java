@@ -26,7 +26,7 @@ public class LivroService {
 	}
 
 	public void remove(Livros obj) {
-		dao.deleteById(obj.getIsbnLivro());
+		dao.deleteLivro(obj);
 	}
 
 	public List<Livros> busca(String title) {

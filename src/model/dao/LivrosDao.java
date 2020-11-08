@@ -14,7 +14,7 @@ public interface LivrosDao {
 
 	void update2(Livros obj);
 
-	void deleteById(String string);
+	void deleteLivro(Livros obj);
 
 	Livros findById(String id);
 
