@@ -31,6 +31,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Livros;
+import model.services.AutorService;
+import model.services.EditoraService;
 import model.services.LivroService;
 
 public class LivrosBuscaController implements Initializable {
@@ -133,7 +135,9 @@ public class LivrosBuscaController implements Initializable {
 
 			LivroFormController controller = loader.getController();
 			controller.setEntityLivro(obj);
-			controller.setServiceLivro(new LivroService());
+			controller.setServices(new LivroService(), new EditoraService(), new AutorService());
+			controller.loadObjectEditora();
+			controller.loadObjectAutor();
 			controller.updateFormDataLivro();
 
 			Stage dialogStage = new Stage();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="190.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivroFormController">
+<AnchorPane prefHeight="257.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LivroFormController">
    <children>
-      <GridPane alignment="CENTER" layoutX="22.0" layoutY="24.0" prefHeight="157.0" prefWidth="477.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="24.0">
+      <GridPane alignment="CENTER" layoutX="20.0" layoutY="25.0" prefHeight="231.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="102.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="189.0" />
@@ -19,25 +20,31 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="80.0" minHeight="2.0" prefHeight="42.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="95.0" text="                    Id:" />
-            <Label prefHeight="17.0" prefWidth="96.0" text=" Nome editora: " GridPane.rowIndex="1" />
-            <Label prefHeight="17.0" prefWidth="97.0" text="                  Url:" GridPane.rowIndex="2" />
-            <Label fx:id="labelErrorNome" prefHeight="17.0" prefWidth="175.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="labelErrorUrl" prefHeight="17.0" prefWidth="187.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="95.0" text="               ISBN:" />
+            <Label prefHeight="17.0" prefWidth="96.0" text="              Titulo:" GridPane.rowIndex="1" />
+            <Label prefHeight="17.0" prefWidth="97.0" text="            Editora:" GridPane.rowIndex="3" />
+            <Label fx:id="labelErrorUrl" prefHeight="17.0" prefWidth="175.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="txtId" editable="false" prefHeight="27.0" prefWidth="140.0" GridPane.columnIndex="1" />
-            <TextField fx:id="txtNome" promptText="Nome Editora" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtUrl" prefHeight="21.0" prefWidth="193.0" promptText="SIte da Editora" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="txtTitulo" promptText="Titulo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvaAction" text="Salvar" />
                   <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#onBtCancelaAction" text="Cancelar" />
                </children>
             </HBox>
+            <Label prefHeight="17.0" prefWidth="102.0" text="               Autor:" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxEditora" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="comboBoxAutor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="17.0" prefWidth="101.0" text="             Preço:" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrice" promptText="Preço" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorNome" prefHeight="17.0" prefWidth="173.0" textFill="#d00b0b" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

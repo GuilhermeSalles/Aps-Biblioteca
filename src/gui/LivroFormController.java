@@ -1,6 +1,8 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -9,31 +11,51 @@ import db.DbException;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
+import model.entities.Autor;
+import model.entities.Editora;
 import model.entities.Livros;
 import model.exceptions.ValidationException;
+import model.services.AutorService;
+import model.services.EditoraService;
 import model.services.LivroService;
 
 public class LivroFormController implements Initializable {
 
+	private Livros entityLivro;
+
 	private LivroService serviceLivro;
 
-	private Livros entityLivro;
+	private AutorService serviceAutor;
+
+	private EditoraService serviceEditora;
 
 	@FXML
 	private TextField txtId;
 
 	@FXML
-	private TextField txtNome;
+	private TextField txtTitulo;
 
 	@FXML
-	private TextField txtUrl;
+	private ComboBox<Editora> comboBoxEditora;
+
+	@FXML
+	private ComboBox<Autor> comboBoxAutor;
+
+	@FXML
+	private TextField txtPrice;
 
 	@FXML
 	private Label labelErrorNome;
@@ -47,12 +69,18 @@ public class LivroFormController implements Initializable {
 	@FXML
 	private Button btCancelar;
 
+	private ObservableList<Editora> obsListEditora;
+
+	private ObservableList<Autor> obsListAutor;
+
 	public void setEntityLivro(Livros entity) {
 		this.entityLivro = entity;
 	}
 
-	public void setServiceLivro(LivroService service) {
-		this.serviceLivro = service;
+	public void setServices(LivroService serviceL, EditoraService serviceEdi, AutorService serviceAutor) {
+		this.serviceLivro = serviceL;
+		this.serviceEditora = serviceEdi;
+		this.serviceAutor = serviceAutor;
 	}
 
 	@FXML
@@ -73,7 +101,7 @@ public class LivroFormController implements Initializable {
 			setErrorMessages(e.getErrors());
 		} finally {
 			MainViewController tbv = new MainViewController();
-			tbv.loadView("/gui/Livros.fxml", (LivrosListController controller) -> {
+			tbv.loadView("/gui/LivroList.fxml", (LivrosListController controller) -> {
 				controller.setLivrosService(new LivroService());
 				controller.updateTableView();
 			});
@@ -82,30 +110,26 @@ public class LivroFormController implements Initializable {
 	}
 
 	private Livros getFormData() {
-//		Livros obj = new Livros();
-//
-//		ValidationException exception = new ValidationException("Validação erro");
-//
-//		obj.setIsbnLivro(txtId.getText());
-//
-//		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
-//			exception.addError("nomeLivros", "Campo não pode ser vazio.");
-//		} else {
-//			obj.setNome(txtNome.getText());
-//		}
-//
-//		if (txtUrl.getText() == null || txtUrl.getText().trim().equals("")) {
-//			exception.addError("Url", "Campo não pode ser vazio.");
-//		} else {
-//			obj.setUrl(txtUrl.getText());
-//		}
-//
-//		if (exception.getErrors().size() > 0) {
-//			throw exception;
-//		}
-//
-//		return obj;
-		return null;
+		Livros obj = new Livros();
+
+		ValidationException exception = new ValidationException("Validação erro");
+
+		obj.setIsbnLivro(txtId.getText());
+
+		if (txtTitulo.getText() == null || txtTitulo.getText().trim().equals("")) {
+			exception.addError("titulo", "Campo não pode ser vazio.");
+		} else {
+			obj.setTitulo((txtTitulo.getText()));
+		}
+
+		obj.setPreco(Double.parseDouble(txtPrice.getText()));
+
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
+
+		return obj;
+
 	}
 
 	@FXML
@@ -119,30 +143,84 @@ public class LivroFormController implements Initializable {
 	}
 
 	private void initializeNodes() {
-		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtNome, 30);
-		Constraints.setTextFieldMaxLength(txtUrl, 30);
+		Constraints.setTextFieldMaxLength(txtId, 30);
+		Constraints.setTextFieldMaxLength(txtTitulo, 30);
+		Constraints.setTextFieldMaxLength(txtPrice, 10);
+		initializeComboBoxEditora();
+		initializeComboBoxAutor();
 	}
 
 	public void updateFormDataLivro() {
 		if (entityLivro == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-//
-//		txtId.setText(String.valueOf(entityLivros.));
-//		txtNome.setText(entityLivros.getNomeLivros());
-//		txtUrl.setText(entityLivros.getUrl());
+
+		txtId.setText(entityLivro.getIsbnLivro());
+		txtTitulo.setText(entityLivro.getTitulo());
+		Locale.setDefault(Locale.US);
+		txtPrice.setText(String.format("%.2f", entityLivro.getPreco()));
+
+		if (entityLivro.getEditoraNome() == null) {
+			comboBoxEditora.getSelectionModel().selectFirst();
+		} else {
+			comboBoxEditora.setValue(entityLivro.getEditoraNome());
+		}
+
+		if (entityLivro.getAutor() == null) {
+			comboBoxAutor.getSelectionModel().selectFirst();
+		} else {
+			comboBoxAutor.setValue(entityLivro.getAutor());
+		}
+	}
+
+	public void loadObjectEditora() {
+		if (serviceEditora == null) {
+			throw new IllegalStateException("ServiceEditora was Null");
+		}
+		List<Editora> list = serviceEditora.findAll();
+		obsListEditora = FXCollections.observableArrayList(list);
+		comboBoxEditora.setItems(obsListEditora);
+	}
+
+	public void loadObjectAutor() {
+		if (serviceAutor == null) {
+			throw new IllegalStateException("ServiceAutor was Null");
+		}
+		List<Autor> list = serviceAutor.findAll();
+		obsListAutor = FXCollections.observableArrayList(list);
+		comboBoxAutor.setItems(obsListAutor);
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("nomeLivros")) {
-			labelErrorNome.setText(errors.get("nomeLivros"));
+		if (fields.contains("titulo")) {
+			labelErrorNome.setText(errors.get("titulo"));
 		}
-		if (fields.contains("Url")) {
-			labelErrorUrl.setText(errors.get("Url"));
-		}
-		
 	}
+
+	private void initializeComboBoxEditora() {
+		Callback<ListView<Editora>, ListCell<Editora>> factory = lv -> new ListCell<Editora>() {
+			@Override
+			protected void updateItem(Editora item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getNomeEditora());
+			}
+		};
+		comboBoxEditora.setCellFactory(factory);
+		comboBoxEditora.setButtonCell(factory.call(null));
+	}
+
+	private void initializeComboBoxAutor() {
+		Callback<ListView<Autor>, ListCell<Autor>> factory = lv -> new ListCell<Autor>() {
+			@Override
+			protected void updateItem(Autor item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getNomeAutor());
+			}
+		};
+		comboBoxAutor.setCellFactory(factory);
+		comboBoxAutor.setButtonCell(factory.call(null));
+	}
+
 }
