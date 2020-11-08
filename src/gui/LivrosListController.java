@@ -72,7 +72,7 @@ public class LivrosListController implements Initializable {
 	public void onbtAdicionaAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Livros obj = new Livros();
-		createdialogForm(obj, "/gui/LivroForm.fxml", parentStage);
+		createdialogFormAdd(obj, "/gui/LivroFormAdd.fxml", parentStage);
 	}
 	
 	public void setLivrosService(LivroService service) {
@@ -87,7 +87,7 @@ public class LivrosListController implements Initializable {
 	private void initializeNodes() {
 		tableColumnIsbn.setCellValueFactory(new PropertyValueFactory<>("isbnLivro"));
 		tableColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-		tableColumnIdEditoraNome.setCellValueFactory(new PropertyValueFactory<>("editoraNome"));
+		tableColumnIdEditoraNome.setCellValueFactory(new PropertyValueFactory<>("editora"));
 		tableColumnAutorNome.setCellValueFactory(new PropertyValueFactory<>("autor"));
 		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
 		
@@ -131,6 +131,32 @@ public class LivrosListController implements Initializable {
 			Alerts.showAlert("IO Exception", "Erro ao carregar View", e.getMessage(), Alert.AlertType.ERROR);
 		}
 
+	}
+	
+	private void createdialogFormAdd(Livros obj, String absoluteName, Stage parentStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+			
+			LivroFormAddController controller = loader.getController();
+			controller.setEntityLivro(obj);
+			controller.setServices(new LivroService(), new EditoraService(), new AutorService());
+			controller.loadObjectEditora();
+			controller.loadObjectAutor();
+			controller.updateFormDataLivro();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Entre com os dados do Editora");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+			
+		} catch (IOException e) {
+			Alerts.showAlert("IO Exception", "Erro ao carregar View", e.getMessage(), Alert.AlertType.ERROR);
+		}
+		
 	}
 	
 	

@@ -8,21 +8,25 @@ public class Livros implements Serializable {
 
 	private String isbnLivro;
 	private String titulo;
-	private Editora editoraNome;
+	private Editora editora;
 	private Autor autor;
 	private double preco;
+
+	private LivrosAutores livrosAutores;
 
 	public Livros() {
 
 	}
 
-	public Livros(String isbnLivro, String titulo, Editora editoraNome, Autor autor, double preco) {
+	public Livros(String isbnLivro, String titulo, Editora editoraNome, Autor autor, double preco,
+			LivrosAutores livrosAutores) {
 		super();
 		this.isbnLivro = isbnLivro;
 		this.titulo = titulo;
-		this.editoraNome = editoraNome;
+		this.editora = editoraNome;
 		this.autor = autor;
 		this.preco = preco;
+		this.livrosAutores = livrosAutores;
 	}
 
 	public String getIsbnLivro() {
@@ -41,12 +45,12 @@ public class Livros implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public Editora getEditoraNome() {
-		return editoraNome;
+	public Editora getEditora() {
+		return editora;
 	}
 
-	public void setEditoraNome(Editora editoraNome) {
-		this.editoraNome = editoraNome;
+	public void setEditora(Editora editoraNome) {
+		this.editora = editoraNome;
 	}
 
 	public Autor getAutor() {
@@ -63,6 +67,14 @@ public class Livros implements Serializable {
 
 	public void setPreco(double preco) {
 		this.preco = preco;
+	}
+
+	public LivrosAutores getLivrosAutores() {
+		return livrosAutores;
+	}
+
+	public void setLivrosAutores(LivrosAutores livrosAutores) {
+		this.livrosAutores = livrosAutores;
 	}
 
 	@Override
@@ -92,7 +104,7 @@ public class Livros implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Livros [isbnLivro=" + isbnLivro + ", titulo=" + titulo + ", editoraId=" + editoraNome + ", preco="
+		return "Livros [isbnLivro=" + isbnLivro + ", titulo=" + titulo + ", editoraId=" + editora + ", preco="
 				+ preco + "]";
 	}
 

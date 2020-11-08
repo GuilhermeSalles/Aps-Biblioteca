@@ -33,7 +33,7 @@ import model.services.AutorService;
 import model.services.EditoraService;
 import model.services.LivroService;
 
-public class LivroFormController implements Initializable {
+public class LivroFormAddController implements Initializable {
 
 	private Livros entityLivro;
 
@@ -97,7 +97,7 @@ public class LivroFormController implements Initializable {
 		}
 		try {
 			entityLivro = getFormData();
-			serviceLivro.update(entityLivro);
+			serviceLivro.save(entityLivro);
 		
 			Utils.currentStage(event).close();
 		} catch (DbException e) {

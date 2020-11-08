@@ -2,38 +2,39 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class LivrosAutores  implements Serializable{
+public class LivrosAutores implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private Integer isbnLivrosAutor;
-	private Integer autorLivroAutor;
+
+	private String isbnLivrosAutor;
+	private int autorLivroAutor;
 	private String sequenciaLivroA;
-	
+
 	public LivrosAutores() {
-		
+
 	}
-	
-	public LivrosAutores(Integer isbnLivrosAutor, Integer autorLivroAutor, String sequenciaLivroA) {
+
+	public LivrosAutores(String isbnLivrosAutor, int autorLivroAutor, String sequenciaLivroA) {
+		super();
 		this.isbnLivrosAutor = isbnLivrosAutor;
 		this.autorLivroAutor = autorLivroAutor;
 		this.sequenciaLivroA = sequenciaLivroA;
 	}
 
-	public Integer getIsbnLivrosAutor() {
+	public String getIsbnLivrosAutor() {
 		return isbnLivrosAutor;
 	}
 
-	public void setIsbnLivrosAutor(Integer isbnLivrosAutor) {
+	public void setIsbnLivrosAutor(String isbnLivrosAutor) {
 		this.isbnLivrosAutor = isbnLivrosAutor;
 	}
 
-	public Integer getAutorLivroAutor() {
+	public int getAutorLivroAutor() {
 		return autorLivroAutor;
 	}
 
-	public void setAutorLivroAutor(Integer autorLivroAutor) {
-		this.autorLivroAutor = autorLivroAutor;
+	public void setAutorLivroAutor(int string) {
+		this.autorLivroAutor = string;
 	}
 
 	public String getSequenciaLivroA() {
@@ -46,9 +47,7 @@ public class LivrosAutores  implements Serializable{
 
 	@Override
 	public String toString() {
-		return "LivrosAutores [isbnLivrosAutor=" + isbnLivrosAutor + ", autorLivroAutor=" + autorLivroAutor
-				+ ", sequenciaLivroA=" + sequenciaLivroA + "]";
+		return  String.valueOf(sequenciaLivroA) ;
 	}
-	
-	
+
 }
