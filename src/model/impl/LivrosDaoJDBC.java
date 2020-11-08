@@ -169,7 +169,7 @@ public class LivrosDaoJDBC implements LivrosDao {
 			st.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
+			throw new DbIntegrityException(e.getMessage()); 
 		} finally {
 			DB.closeStatement(st);
 		}
