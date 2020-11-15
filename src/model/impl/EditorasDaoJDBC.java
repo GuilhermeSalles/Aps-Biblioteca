@@ -110,7 +110,7 @@ public class EditorasDaoJDBC implements EditorasDao {
 			st.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
+			throw new DbIntegrityException("A Editora está relacionada com outros livros, se quiser deseja deleta-lá, delete suas referencias na parte dos livros.\n*Informações - Opções para Livros - Livros\nObrigado!");
 		} finally {
 			DB.closeStatement(st);
 		}

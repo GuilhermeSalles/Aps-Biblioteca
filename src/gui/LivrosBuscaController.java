@@ -108,7 +108,7 @@ public class LivrosBuscaController implements Initializable {
 	private void initializeNodes() {
 		tableColumnIsbn.setCellValueFactory(new PropertyValueFactory<>("isbnLivro"));
 		tableColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-		tableColumnIdEditoraNome.setCellValueFactory(new PropertyValueFactory<>("editoraNome"));
+		tableColumnIdEditoraNome.setCellValueFactory(new PropertyValueFactory<>("editora"));
 		tableColumnAutorNome.setCellValueFactory(new PropertyValueFactory<>("autor"));
 		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
 		
@@ -133,7 +133,7 @@ public class LivrosBuscaController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			LivroFormController controller = loader.getController();
+			LivroBuscaFormController controller = loader.getController();
 			controller.setEntityLivro(obj);
 			controller.setServices(new LivroService(), new EditoraService(), new AutorService());
 			controller.loadObjectEditora();
@@ -141,7 +141,7 @@ public class LivrosBuscaController implements Initializable {
 			controller.updateFormDataLivro();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Editora");
+			dialogStage.setTitle("Altere os dados do Livro");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
@@ -169,7 +169,7 @@ public class LivrosBuscaController implements Initializable {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createdialogForm(obj, "/gui/LivroForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createdialogForm(obj, "/gui/LivroBuscaForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}

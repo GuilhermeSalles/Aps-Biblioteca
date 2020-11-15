@@ -111,7 +111,7 @@ public class EditorasListController implements Initializable {
 			controller.updateFormDataEditora();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Editora");
+			dialogStage.setTitle("Entre com os dados ou altere da Editora");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);

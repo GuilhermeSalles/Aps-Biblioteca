@@ -33,7 +33,7 @@ import model.services.AutorService;
 import model.services.EditoraService;
 import model.services.LivroService;
 
-public class LivroFormController implements Initializable {
+public class LivroBuscaFormController implements Initializable {
 
 	private Livros entityLivro;
 
@@ -43,8 +43,6 @@ public class LivroFormController implements Initializable {
 
 	private EditoraService serviceEditora;
 
-	public String auxSeque;
-	
 	@FXML
 	private TextField txtId;
 
@@ -100,7 +98,6 @@ public class LivroFormController implements Initializable {
 		try {
 			entityLivro = getFormData();
 			serviceLivro.update(entityLivro);
-			serviceLivro.update2(entityLivro,auxSeque);
 		
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
@@ -109,7 +106,7 @@ public class LivroFormController implements Initializable {
 			setErrorMessages(e.getErrors());
 		} finally {
 			MainViewController tbv = new MainViewController();
-			tbv.loadView("/gui/LivroList.fxml", (LivrosListController controller) -> {
+			tbv.loadView("/gui/LivroBusca.fxml", (LivrosBuscaController controller) -> {
 				controller.setLivrosService(new LivroService());
 				controller.updateTableView();
 			});
@@ -138,6 +135,7 @@ public class LivroFormController implements Initializable {
 		lAut.setAutorLivroAutor(comboBoxAutor.getValue().getAutorId());
 		lAut.setIsbnLivrosAutor(txtId.getText());
 		lAut.setSequenciaLivroA(txtseq.getText());
+		
 		
 		obj.setLivrosAutores(lAut);
 
@@ -177,7 +175,6 @@ public class LivroFormController implements Initializable {
 			txtseq.setText(String.format("0", entityLivro.getLivrosAutores()));
 		} else {
 			txtseq.setText(entityLivro.getLivrosAutores().getSequenciaLivroA());
-			auxSeque = entityLivro.getLivrosAutores().getSequenciaLivroA();
 		}
 
 		txtTitulo.setText(entityLivro.getTitulo());

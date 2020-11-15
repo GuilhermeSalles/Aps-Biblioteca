@@ -21,8 +21,10 @@ public class LivroService {
 
 	public void update(Livros obj) {
 		dao.update(obj);
-		dao.update2(obj);
-
+	}
+	
+	public void update2(Livros obj,String AuxSeq) {
+		dao.update2(obj,AuxSeq);
 	}
 
 	public void remove(Livros obj) {

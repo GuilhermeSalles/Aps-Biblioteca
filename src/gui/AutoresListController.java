@@ -107,7 +107,7 @@ public class AutoresListController implements Initializable {
 			controller.updateFormDataAutor();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Autor");
+			dialogStage.setTitle("Entre com os dados ou altere do Autor");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);

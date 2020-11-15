@@ -88,7 +88,7 @@ public class AutoresDaoJDBC implements AutoresDao {
 			st.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
+			throw new DbIntegrityException("O Autor está relacionado com outros livros, se deseja deleta-lo, apague todas suas relações na parte de livros.\n*Informações - Opções para Livros - Livros\nObrigado!");
 		} finally {
 			DB.closeStatement(st);
 		}

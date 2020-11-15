@@ -12,7 +12,7 @@ public interface LivrosDao {
 
 	void update(Livros obj);
 
-	void update2(Livros obj);
+	void update2(Livros obj,String AuxSeq);
 
 	void deleteLivro(Livros obj);
 

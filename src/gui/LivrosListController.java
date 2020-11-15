@@ -120,7 +120,7 @@ public class LivrosListController implements Initializable {
 			controller.updateFormDataLivro();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Editora");
+			dialogStage.setTitle("Entre com os dados do Livro");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
@@ -146,7 +146,7 @@ public class LivrosListController implements Initializable {
 			controller.updateFormDataLivro();
 			
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Editora");
+			dialogStage.setTitle("Altere os dados do Livro");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);

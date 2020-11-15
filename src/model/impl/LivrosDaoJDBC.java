@@ -137,7 +137,7 @@ public class LivrosDaoJDBC implements LivrosDao {
 	}
 	
 	@Override
-	public void update2(Livros obj) {
+	public void update2(Livros obj,String AuxSeq) {
 		PreparedStatement st = null;
 
 		try {
@@ -147,7 +147,7 @@ public class LivrosDaoJDBC implements LivrosDao {
 			st.setInt(1, obj.getAutor().getAutorId());
 			st.setInt(2, Utils.tryParseToInt(obj.getLivrosAutores().getSequenciaLivroA()));
 			st.setString(3, obj.getIsbnLivro());
-			st.setInt(4, Utils.tryParseToInt(obj.getLivrosAutores().getSequenciaLivroA()));
+			st.setInt(4, Utils.tryParseToInt(AuxSeq));
 			st.executeUpdate();
 
 		} catch (SQLException e) {
