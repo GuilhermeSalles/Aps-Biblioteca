@@ -44,7 +44,7 @@ public class LivroFormController implements Initializable {
 	private EditoraService serviceEditora;
 
 	public String auxSeque;
-	
+
 	@FXML
 	private TextField txtId;
 
@@ -100,8 +100,8 @@ public class LivroFormController implements Initializable {
 		try {
 			entityLivro = getFormData();
 			serviceLivro.update(entityLivro);
-			serviceLivro.update2(entityLivro,auxSeque);
-		
+			serviceLivro.update2(entityLivro, auxSeque);
+
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
 			Alerts.showAlert("Error Saving Object", null, e.getMessage(), Alert.AlertType.ERROR);
@@ -134,11 +134,11 @@ public class LivroFormController implements Initializable {
 		obj.setPreco(Double.parseDouble(txtPrice.getText()));
 		obj.setAutor(comboBoxAutor.getValue());
 		obj.setEditora(comboBoxEditora.getValue());
-		
+
 		lAut.setAutorLivroAutor(comboBoxAutor.getValue().getAutorId());
 		lAut.setIsbnLivrosAutor(txtId.getText());
 		lAut.setSequenciaLivroA(txtseq.getText());
-		
+
 		obj.setLivrosAutores(lAut);
 
 		if (exception.getErrors().size() > 0) {
@@ -221,9 +221,8 @@ public class LivroFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("titulo")) {
-			labelErrorNome.setText(errors.get("titulo"));
-		}
+		labelErrorNome.setText((fields.contains("titulo") ? errors.get("titulo") : ""));
+
 	}
 
 	private void initializeComboBoxEditora() {

@@ -30,6 +30,10 @@ public class LivroService {
 	public void remove(Livros obj) {
 		dao.deleteLivro(obj);
 	}
+	
+	public void remove2(Livros obj) {
+		dao.deleteLivro2(obj);
+	}
 
 	public List<Livros> busca(String title) {
 		return dao.findTitle(title);

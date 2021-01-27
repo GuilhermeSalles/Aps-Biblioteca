@@ -201,6 +201,7 @@ public class LivrosBuscaController implements Initializable {
 			}
 			try {
 				service.remove(obj);
+				service.remove2(obj);
 				updateTableView();
 			} catch (DbIntegrityException e) {
 				Alerts.showAlert("Erro ao remover Objeto", null, e.getMessage(), AlertType.ERROR);

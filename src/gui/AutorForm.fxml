@@ -27,8 +27,6 @@
             <Label prefHeight="17.0" prefWidth="78.0" text="              Id:" />
             <Label prefHeight="17.0" prefWidth="79.0" text="        Nome: " GridPane.rowIndex="1" />
             <Label text="Sobrenome: " GridPane.rowIndex="2" />
-            <Label fx:id="labelErrorNome" prefHeight="17.0" prefWidth="182.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="labelErrorSobreNome" prefHeight="17.0" prefWidth="175.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="txtId" editable="false" prefHeight="27.0" prefWidth="140.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtNome" promptText="Nome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtSobreNome" promptText="Sobrenome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -38,6 +36,8 @@
                   <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#onBtCancelaAction" text="Cancelar" />
                </children>
             </HBox>
+            <Label fx:id="labelErrorNome" prefHeight="17.0" prefWidth="182.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorSobreNome" prefHeight="17.0" prefWidth="175.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

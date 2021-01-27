@@ -136,11 +136,9 @@ public class AutorFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("nomeAutor")) {
-			labelErrorNome.setText(errors.get("nomeAutor"));
-		}
-		if (fields.contains("sobrenome")) {
-			labelErrorSobreNome.setText(errors.get("sobrenome"));
-		}
+		labelErrorNome.setText((fields.contains("nomeAutor") ? errors.get("nomeAutor") : ""));
+
+		labelErrorSobreNome.setText((fields.contains("sobrenome") ? errors.get("sobrenome") : ""));
+		
 	}
 }

@@ -65,7 +65,7 @@ public class LivroFormAddController implements Initializable {
 	private Label labelErrorNome;
 
 	@FXML
-	private Label labelErrorUrl;
+	private Label labelErrorIsbn;
 
 	@FXML
 	private Button btSalvar;
@@ -120,7 +120,11 @@ public class LivroFormAddController implements Initializable {
 
 		ValidationException exception = new ValidationException("Validação erro");
 
-		obj.setIsbnLivro(txtId.getText());
+		if (txtId.getText() == null || txtId.getText().trim().equals("")) {
+			exception.addError("isbn","Campo não pode ser vazio.");
+		} else {
+			obj.setIsbnLivro(txtId.getText());			
+		}
 
 		if (txtTitulo.getText() == null || txtTitulo.getText().trim().equals("")) {
 			exception.addError("titulo", "Campo não pode ser vazio.");
@@ -221,6 +225,9 @@ public class LivroFormAddController implements Initializable {
 		if (fields.contains("titulo")) {
 			labelErrorNome.setText(errors.get("titulo"));
 		}
+		
+		labelErrorNome.setText((fields.contains("titulo") ? errors.get("titulo") : ""));
+		labelErrorIsbn.setText((fields.contains("isbn") ? errors.get("isbn") : ""));
 	}
 
 	private void initializeComboBoxEditora() {

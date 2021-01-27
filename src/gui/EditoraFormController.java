@@ -136,12 +136,9 @@ public class EditoraFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("nomeEditora")) {
-			labelErrorNome.setText(errors.get("nomeEditora"));
-		}
-		if (fields.contains("Url")) {
-			labelErrorUrl.setText(errors.get("Url"));
-		}
-		
+		labelErrorNome.setText((fields.contains("nomeEditora") ? errors.get("nomeEditora") : ""));
+
+		labelErrorUrl.setText((fields.contains("Url") ? errors.get("Url") : ""));
+
 	}
 }

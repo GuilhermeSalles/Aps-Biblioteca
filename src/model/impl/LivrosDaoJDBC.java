@@ -75,7 +75,7 @@ public class LivrosDaoJDBC implements LivrosDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbException("ISBN existente!!");
 		} finally {
 			DB.closeStatement(st);
 		}
@@ -106,7 +106,7 @@ public class LivrosDaoJDBC implements LivrosDao {
 			}
 			
 		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbException("ISBN existente!!");
 		} finally {
 			DB.closeStatement(st);
 		}
@@ -164,6 +164,24 @@ public class LivrosDaoJDBC implements LivrosDao {
 		try {
 
 			st = conn.prepareStatement("delete from BooksAuthors where isbn = ?");
+
+			st.setString(1, obj.getIsbnLivro());
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbIntegrityException(e.getMessage()); 
+		} finally {
+			DB.closeStatement(st);
+		}
+
+	}
+	
+	@Override
+	public void deleteLivro2(Livros obj) {
+		PreparedStatement st = null;
+		try {
+
+			st = conn.prepareStatement("delete from Books where isbn = ?");
 
 			st.setString(1, obj.getIsbnLivro());
 			st.executeUpdate();

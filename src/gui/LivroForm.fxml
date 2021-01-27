@@ -30,24 +30,24 @@
          <children>
             <Label prefHeight="17.0" prefWidth="95.0" text="               ISBN:" />
             <Label prefHeight="17.0" prefWidth="96.0" text="              Titulo:" GridPane.rowIndex="1" />
+            <Label text="Sequencia livro:" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="101.0" text="             Preço:" GridPane.rowIndex="3" />
             <Label prefHeight="17.0" prefWidth="97.0" text="            Editora:" GridPane.rowIndex="4" />
-            <Label fx:id="labelErrorUrl" prefHeight="17.0" prefWidth="175.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label prefHeight="17.0" prefWidth="102.0" text="               Autor:" GridPane.rowIndex="5" />
             <TextField fx:id="txtId" editable="false" prefHeight="27.0" prefWidth="140.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtTitulo" prefHeight="27.0" prefWidth="193.0" promptText="Titulo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtseq" prefHeight="27.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrice" promptText="Preço" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="comboBoxEditora" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxAutor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvaAction" text="Salvar" />
                   <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#onBtCancelaAction" text="Cancelar" />
                </children>
             </HBox>
-            <Label prefHeight="17.0" prefWidth="102.0" text="               Autor:" GridPane.rowIndex="5" />
-            <ComboBox fx:id="comboBoxEditora" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="comboBoxAutor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label prefHeight="17.0" prefWidth="101.0" text="             Preço:" GridPane.rowIndex="3" />
-            <TextField fx:id="txtPrice" promptText="Preço" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorNome" prefHeight="17.0" prefWidth="173.0" textFill="#d00b0b" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Sequencia livro:" GridPane.rowIndex="2" />
-            <TextField fx:id="txtseq" prefHeight="27.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorIsbn" prefHeight="17.0" prefWidth="175.0" text=" " textFill="#d00d0d" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </children>
