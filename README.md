@@ -1,6 +1,6 @@
 
 # 📚 Aps-Biblioteca
-
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/GuilhermeSalles/Aps-Biblioteca/blob/master/LICENSE) 
 ## 📝 Visão Geral
 Este projeto, desenvolvido em **Java** e **JavaFX**, é um sistema de gestão para bibliotecas. Ele oferece uma interface intuitiva para gerenciar livros, empréstimos, devoluções e registro de usuários, facilitando o controle e a organização de uma biblioteca.
 
