@@ -25,13 +25,6 @@ Siga os passos abaixo para executar o projeto:
    Certifique-se de ter o **Java** e o **JavaFX** configurados em seu ambiente de desenvolvimento.
 3. **Execução**:
    Abra o projeto em um IDE compatível com Java (como Eclipse ou IntelliJ) e execute a aplicação.
-
-## 🤝 Contribuições
-Contribuições são sempre bem-vindas! Se quiser colaborar, faça um **pull request** ou abra uma **issue** no GitHub.
-
-## 📄 Licença
-Este projeto é distribuído sob uma licença de código aberto. Confira os detalhes no arquivo de licença.
-
 ---
 
 ## 👤 Autor
